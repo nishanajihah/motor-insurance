@@ -1,0 +1,173 @@
+<!-- templates/home.html-->
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+    <div style="height:10px;"></div>
+        <div class="container">
+            <div class="row">
+                {% if user.is_authenticated %}
+                <div class="col-sm-10 text-end">
+                    <div style="height:5px;"></div>
+                    <b>Hi {{ user.username }}!</b>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" type="submit" style="border-radius:16px;">
+                    <a href="{% url 'logout' %}" 
+                        style="color:#ffffff; text-decoration:none;">Log Out</a>
+                    </button>
+                </div>
+
+                <div style="height:10px;"></div><hr>
+
+                <div class="container">
+                <form action="{%  url 'form' %}" method="post" enctype="multipart/form-data">
+                    {%  csrf_token %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm"></div>
+
+                            <div class="col-sm-5">
+                                <h4 align="center">CLAIMS FORM</h4>
+
+                                <!-- DRIVER: NAME,EMAIL,MOBILE -->
+                                <div class="mb-2 row">
+                                    <label for="inputName" class="form-label">Name: </label>
+                                    <div class="col-sm-20">
+                                        <input type="text" class="form-control" id="inputName" name="name" required>
+                                    </div>
+
+                                    <div class="col-8">
+                                        <label for="inputEmail" class="form-label">Email: </label>
+                                        <div class="col-sm-20">
+                                            <input type="text" class="form-control" id="inputEmail" name="email" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col">
+                                        <label for="inputMobile" class="form-label">Mobile No: </label>
+                                        <div class="col-sm-20">
+                                            <input type="text" class="form-control" id="inputMobile" name="mobile" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <!--VEHICLE: YEAR,MODEL,NUMBER  -->
+                                <div class="mb-2 row">
+                                    <div class="col-5">
+                                        <label for="inputvyear" class="form-label">Vehicle Year Make: </label>
+                                        <div class="col-sm-20">
+                                            <input type="text" class="form-control" id="inputvyear" name="vehicle_year">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <label for="inputvmodel" class="form-label">Vehicle Model: </label>
+                                        <div class="col-sm-20">
+                                            <input type="text" class="form-control" id="inputvmodel" name="vehicle_model">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col">
+                                        <label for="inputvnumber" class="form-label">Vehicle No: </label>
+                                        <div class="col-sm-20">
+                                            <input type="text" class="form-control" id="inputvnumber" name="vehicle_number">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <!--LOSS: DATE/TIME, LOCATION, LOSSTYPE, DESCRIPTION, REPORT LODGED, INJURED  -->
+                                <div class="mb-2 row">
+                                    <div class="col-5">
+                                        <label for="inputLossDataTime" class="form-label">DataTime of Accident: </label>
+                                        <div class="col-sm-20">
+                                            <input type="text" class="form-control" id="inputLossDataTime" name="loss_datatime">
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <label for="inputLossType" class="form-label">Type of Loss: </label>
+                                            <div class="col-sm-20">
+                                                <input type="text" class="form-control" id="inputEmail" name="inputLossType">
+                                                {% comment %} <select name="LOSSTYPE">
+                                                    {% for LOSS in acc%}
+                                                        <option value="{{ passengers.id }}">{{ passengers }}</option>
+                                                    {% endfor %}
+                                                </select> {% endcomment %}
+                                            </div>
+                                    </div>
+                                    
+                                    <div class="container">
+                                        <div class="col">
+                                            <label for="inputLossLocation" class="form-label">Location: </label>
+                                            <div class="col-sm-20">
+                                                <input type="text" class="form-control" id="inputEmail" name="loss_location">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label for="inputMobile" class="form-label">Accident Decription: </label>
+                                    <div class="col-sm-20">
+                                        <input type="text" class="form-control" id="inputMobile" name="mobile">
+                                    </div><br><br>
+                                    
+                                    <div class="col-6">
+                                        <input type="checkbox" id="police_report" name="police_report" value="police_report">
+                                        <label for="police_report">Police Report Lodged?</label><br>
+                                    </div>
+                                    <div class="col">
+                                        <input type="checkbox" id="injured" name="injured" value="injured">
+                                        <label for="vehicle1">Anybody Injured?</label><br>
+                                    </div>
+                                    
+                                </div>
+
+                                <hr>
+
+                                <!--DOCUMENTS: PDF,PHOTO  -->
+                                <div class="mb-2 row">
+                                    <div class="col-5">
+                                        {% comment %} <label for="inputvyear" class="form-label"></label> {% endcomment %}
+                                        <div class="col-sm-20">
+                                            {{ form.as_p }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <!-- BUTTON -->
+                                <div class="mb-2 row" align="center">
+                                    <div class="d-grid gap-2 d-md-block">
+                                        <input class="btn btn-primary" type="submit" name="submit" style="width:150px; height:40px; border-radius: 16px;">
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="col-sm">   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            {% else %}
+              <p>You are not logged in</p>
+              <a href="{% url 'login' %}">Log In</a>
+            {% endif %}   
+        </div>
+    </div>
+
+     
+
+{% endblock %}
+
+            
+
+        
