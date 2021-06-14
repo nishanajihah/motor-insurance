@@ -42,17 +42,6 @@ def form(request):
         loss = LossForm(request.POST, prefix='loss')
         document = DocumentForm(request.POST, request.FILES, prefix='document')
 
-        if farm_form.is_valid and phone_form.is_valid and address_form.is_valid:
-            farm=farm_form.save(commit=False)
-            farm.recorded_by = request.user
-       
-            phone=phone_form.save(False)
-            phone.farm = farm
-            phone.save()
-            address = address_form.save(False)
-            address.farm = farm
-            address.save()
-
         # name = request.POST["name"]
         # email = request.POST["email"]
         # mobile = request.POST["mobile"]
@@ -76,17 +65,6 @@ def form(request):
 
     return render (request, "claims/home.html")
 
-# def doc_upload(request):
-#     if request.method == 'POST':
-#         form = DocumentForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('claims/home.html')
-#     else:
-#         form = DocumentForm()
-#     return render(request, 'claims/home.html', {
-#         'form': form
-#     })
 
 
 
