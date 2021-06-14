@@ -12,15 +12,15 @@ class UserForm(ModelForm):
         exclude = ['status']
         # fields = "__all__"
 
-# class VehicleForm(ModelForm):
-#     class Meta:
-#         model = Vehicle
-#         fields = "__all__"
+class VehicleForm(ModelForm):
+    class Meta:
+        model = Vehicle
+        fields = "__all__"
 
-# class LossForm(ModelForm):
-#     class Meta:
-#         model = Loss
-#         fields = "__all__"
+class LossForm(ModelForm):
+    class Meta:
+        model = Loss
+        fields = "__all__"
 
 class DocumentForm(ModelForm):
     class Meta:
@@ -29,6 +29,7 @@ class DocumentForm(ModelForm):
     
 # Calling all data in model (Accessing)
 def index(request):
+    # Accessing User Information
     return render(request, "claims/home.html", {
         "info": UserInformation.objects.all()
     })
@@ -36,7 +37,21 @@ def index(request):
 def form(request):
 
     if request.method == "POST":
-        document = DocumentForm(request.POST, request.FILES)
+        user = UserForm(request.POST, prefix='user')
+        vehicle = VehicleForm(request.POST, prefix='vehicle')
+        loss = LossForm(request.POST, prefix='loss')
+        document = DocumentForm(request.POST, request.FILES, prefix='document')
+
+        if farm_form.is_valid and phone_form.is_valid and address_form.is_valid:
+            farm=farm_form.save(commit=False)
+            farm.recorded_by = request.user
+       
+            phone=phone_form.save(False)
+            phone.farm = farm
+            phone.save()
+            address = address_form.save(False)
+            address.farm = farm
+            address.save()
 
         # name = request.POST["name"]
         # email = request.POST["email"]
