@@ -1,11 +1,11 @@
 # motor-insurance
 
 **Login**
-username: user
-password: #user1234
+[username: user]
+[password: #user1234]
 
 **Admin**
-username: admin
-password: #admin1234
+[username: admin]
+[password: #admin1234]
 
 
